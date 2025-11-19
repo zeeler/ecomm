@@ -158,9 +158,9 @@ hosts:
   'time.android.com': 203.107.6.88
   'time.facebook.com': 203.107.6.88
 proxy-groups:
-  - {name: 🚀 节点选择, type: select, proxies: [Singapore-A, Japan-TK3], include-all-providers: true}
-  - {name: 🐟 漏网之鱼, type: select, proxies: [🚀 节点选择, Singapore-A, Japan-TK3, 🎯 全球直连]}
-  - {name: 🎯 全球直连, type: select, proxies: [DIRECT], hidden: true}
+  - {name: Selection, type: select, proxies: [Singapore-A, Japan-TK3], include-all-providers: true}
+  - {name: Final, type: select, proxies: [Selection, Singapore-A, Japan-TK3, Direct]}
+  - {name: Direct, type: select, proxies: [DIRECT], hidden: true}
   - {name: Singapore-A, type: url-test, tolerance: 100, lazy: true, use: [Singapore-A]}
   - {name: Japan-TK3, type: url-test, tolerance: 100, lazy: true, use: [Japan-TK3]}
 proxy-providers:
@@ -193,8 +193,8 @@ proxy-providers:
 
 rules:    
   - RULE-SET, LAN, DIRECT
-  - GEOIP, CN, 🎯 全球直连
-  - MATCH, 🐟 漏网之鱼
+  - GEOIP, CN, Direct
+  - MATCH, Final
 
 script:
   code: "def main(ctx, metadata):\n    ruleset_action = {\n        'Special': 'DIRECT',\n        'Netflix': 'Netflix',\n        'Disney Plus': 'Disney',\n        'YouTube': 'YouTube',\n        'Spotify': 'Spotify',\n        'Bilibili': 'Asian TV',\n        'IQ': 'Asian TV',\n        'IQIYI': 'Asian TV',\n        'Letv': 'Asian TV',\n        'Netease Music': 'Asian TV',\n        'Tencent Video': 'Asian TV',\n        'Youku': 'Asian TV',\n        'WeTV': 'Asian TV',\n        'ABC': 'Global TV',\n        'Abema TV': 'Global TV',\n        'Amazon': 'Global TV',\n        'Bahamut': 'Global TV',\n        'BBC iPlayer': 'Global TV',\n        'DAZN': 'Global TV',\n        'Discovery Plus': 'Global TV',\n        'encoreTVB': 'Global TV',\n        'F1 TV': 'Global TV',\n        'Fox Now': 'Global TV',\n        'Fox+':'Global TV',\n        'HBO Max': 'Global TV',\n        'Hulu Japan': 'Global TV',\n        'Hulu': 'Global TV',\n        'Japonx': 'Global TV',\n        'JOOX': 'Global TV',\n        'KKBOX': 'Global TV',\n        'KKTV': 'Global TV',\n        'Line TV': 'Global TV',\n        'myTV SUPER': 'Global TV',\n        'Niconico': 'Global TV',\n        'Pandora': 'Global TV',\n        'PBS': 'Global TV',\n        'Pornhub': 'Global TV',\n        'Soundcloud': 'Global TV',\n        'ViuTV': 'Global TV',\n        'Apple Music': 'Apple TV',\n        'Apple News': 'Apple TV',\n        'Apple TV': 'Apple TV',\n        'Apple': 'Apple',\n        'Telegram': 'Telegram',\n        'Crypto': 'Crypto',\n        'Discord': 'Discord',\n        'Google FCM': 'Google FCM',\n        'Microsoft': 'Microsoft',\n        'OpenAI': 'OpenAI',\n        'PayPal': 'PayPal',\n        'Scholar': 'Scholar',\n        'Speedtest': 'Speedtest',\n        'Steam': 'Steam',\n        'miHoYo': 'miHoYo',\n        'PROXY': 'Proxy',\n        'Domestic': 'Domestic',\n        'Domestic IPs': 'Domestic',\n        'LAN': 'DIRECT'\n      }\n\n    port = int(metadata['dst_port'])\n\n    if metadata['network'] == 'UDP' and port == 443:\n        ctx.log('[Script] matched QUIC traffic use reject')\n        return 'REJECT'\n\n    port_list = [21, 22, 23, 53, 80, 123, 143, 194, 443, 465, 587, 853, 993, 995, 998, 2052, 2053, 2082, 2083, 2086, 2095, 2096, 3389, 5222, 5228, 5229, 5230, 8080, 8443, 8880, 8888, 8889]\n    if port not in port_list:\n        ctx.log('[Script] not common port use direct')\n        return 'DIRECT'\n\n    if metadata['dst_ip'] == '':\n        metadata['dst_ip'] = ctx.resolve_ip(metadata['host'])\n\n    for ruleset in ruleset_action:\n        if ctx.rule_providers[ruleset].match(metadata):\n            return ruleset_action[ruleset]\n\n    if metadata['dst_ip'] != '':\n        code = ctx.geoip(metadata['dst_ip'])\n        if code == 'CN':\n            ctx.log('[Script] Geoip CN')\n            return 'Domestic'\n\n    ctx.log('[Script] FINAL')\n    return 'Others'\n"
