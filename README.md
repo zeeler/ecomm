@@ -1,51 +1,104 @@
-# Redmi AX6000 Router
+# 🌏 Cross-Border E-commerce Knowledge Base | 跨境电商出海全栈知识库
 
-## 硬件介绍
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/yourusername/your-repo/graphs/commit-activity)
 
-Redmi AX6000路由器是一款在中端市场性价比不错的产品，硬件配置比较扎实。下面这个表格汇总了它的主要硬件配置信息，你可以快速了解：
+> **从 0 到 1，从中国到全球。** > 这是一个关于跨境电商（Cross-Border E-commerce）与外贸行业的开源知识集合。本项目旨在为中国卖家提供全链路的实操指南，涵盖技术环境搭建、平台运营、独立站建设、供应链管理、全球物流及合规风控等核心领域。
 
-| **组件类别** | **具体配置** |
-| :--- | :--- |
-| **处理器 (CPU)** | 联发科 **Filogic 830** 4核处理器，单核主频 **2GHz** |
-| **内存 (RAM)** | **512MB** |
-| **无线规格** | • **无线速率**：**6000兆级**<br>• **2.4GHz**：574Mbps<br>• **5GHz**：4804Mbps<br>• **技术特点**：支持 **160MHz** 频宽，**8数据流**设计 |
-| **信号放大器** | **8路** 独立信号放大器 |
-| **有线接口** | 4个自适应网口 (均为千兆口)，支持 **LAN口聚合**，可将任一网口设置为 **IPTV口** |
-| **其他功能** | 支持 **Mesh组网**，赠送游戏加速器会员 |
+---
 
-## 获取SSH权限
+## 📖 目录结构 (Directory)
 
-- 固件版本：1.0.67 尝试成功
-- 具体步骤：https://www.right.com.cn/forum/thread-8253125-1-1.html
+本项目采用模块化结构整理，你可以点击下方链接快速跳转至对应章节（对应文件夹）：
 
-## 按照OpenCrash
+### [📂 00. 前言与导航 (Read Me)](/00-ReadMe)
+* 新手入坑路线图 (Roadmap)
+* 行业术语表 (Glossary: SKU, ASIN, ROI, VAT, etc.)
+* 贡献指南
 
-参考文档：https://github.com/juewuy/ShellCrash/blob/dev/README_CN.md
+### [🌐 01. 网络与环境基础 (Infrastructure)](/01-Infrastructure)
+* **网络接入方案**：节点选择、专线对比与速度优化。
+* **防关联技术**：指纹浏览器 (AdsPower, 紫鸟等) 配置、IP 类型 (住宅/机房) 解析。
+* **硬件环境**：多账号操作的物理隔离与设备建议。
 
-- 安装脚本
-```shell
-sh -c "$(curl -kfsSl https://fastly.jsdelivr.net/gh/juewuy/ShellCrash@master/install.sh)" && source /etc/profile &> /dev/null
-```
+### [⚖️ 02. 主体与合规 (Entity & Compliance)](/02-Compliance)
+* **公司注册**：大陆/香港/美国公司注册利弊分析。
+* **税务合规**：欧洲 VAT、美国 Sales Tax 申报指南。
+* **知识产权**：欧美商标注册、品牌备案 (Brand Registry)、专利申请。
+* **认证体系**：FCC, CE, UL, CPC, FDA 认证流程。
 
-- 设置
-第一项：选稳定版
-第二项：安装到 /data，确认安装
-3）启动crash：
-第一项：路由设备配置局域网透明代理
-第二项：1（启用）
-第三项：是否启用软固化功能？选 0，因为上面已经固化了
+### [🏪 03. 平台入驻与独立站 (Platforms & DTC)](/03-Platforms)
+* **电商平台**：
+    * **Amazon**：FBA/FBM 模式、账号二审、视频验证攻略。
+    * **TikTok Shop**：英美区/东南亚区入驻与达人带货。
+    * **其他平台**：Walmart, Temu, SHEIN, Etsy, eBay, Shopee 等。
+* **独立站 (DTC)**：
+    * **建站工具**：Shopify, WordPress + WooCommerce, Shopline。
+    * **支付网关**：PayPal, Stripe, 2Checkout 申请与风控。
 
-- 配置
-基本配置
-a. 切换源：主菜单-9 更新/卸载，7 切换安装源，4 Cloudflare_CDN源，这个源速度快一些
-b. 修改内核：主菜单-2 内核功能设置，1 切换防火墙运行模式，改成混合模式
-c. 配置文件：主菜单-6 导入配置文件，3 本地生成providers配置文件，a 添加providers提供者，输入url（自己的配置做成在线地址）；c 选择模板，根据路由器配置选择极简或者其他；b 生成基于providers的配置文件即可生成完整config.yaml，也可以用本项目clash目录下的config.yaml作为模板修改
-d. 启动clash，选择内核进阶设置，启用域名嗅探
-e. 安装UI
+### [📦 04. 供应链与选品 (Supply Chain)](/04-SupplyChain)
+* **选品方法论**：数据选品 (Helium 10/JS)、社交媒体趋势选品。
+* **货源渠道**：1688 挖掘、广交会、产业带地图。
+* **成本控制**：定价模型与利润计算器 (Excel 模版)。
 
-- 启动clash
-选择9更新/卸载，再选择4安装本地Dashboard面板，选择2 Yacd-Meta魔改面板，安装目录选择1 /data/ShellCrash/ui
-安装完后，再浏览器打开 http://192.168.12.1:9999/ui
+### [🚛 05. 跨境物流与仓储 (Logistics)](/05-Logistics)
+* **物流全流程**：头程 (海运/空派/中欧班列)、报关清关、尾程派送。
+* **仓储模式**：FBA 仓、第三方海外仓、自建/家庭仓、虚拟海外仓。
+* **术语解析**：FOB, CIF, DDP, EXW 详解。
 
-## 配置SSH链接
-openwrt的公钥要放在：/etc/dropbear/authorized_keys里
+### [📈 06. 运营与推广 (Operations & Marketing)](/06-Marketing)
+* **Listing 优化**：SEO 埋词、文案撰写 (ChatGPT 辅助)、视觉营销。
+* **广告投放**：Amazon PPC (SP/SB/SD)、Facebook/Instagram Ads、Google SEM。
+* **站外引流**：TikTok 短视频运营、网红营销 (Influencer)、Deal 站促销。
+
+### [🛠 07. 工具与技术栈 (Tools)](/07-Tools)
+* **ERP 系统**：店小秘、马帮、积加、领星等评测。
+* **AI 提效**：使用 AIGC 工具生成文案与图片。
+* **数据分析**：GA4 配置与竞品分析工具。
+
+### [🆘 08. 风控与危机处理 (Risk Management)](/08-RiskManagement)
+* **账号申诉**：关联封号、侵权投诉 (POA 撰写)。
+* **防御机制**：赶跟卖、应对恶意差评。
+
+### [👥 09. 组织与管理 (Management)](/09-Management)
+* 团队架构设计与绩效考核 (KPI/OKR)。
+* 客服 SOP 与流程标准化。
+
+---
+
+## 🤝 如何参与贡献 (Contribution)
+
+跨境电商行业变化极快，政策与玩法日新月异。个人的力量是有限的，我们非常欢迎并鼓励你参与到这个知识库的建设中来！
+
+你可以通过以下方式参与：
+1.  **补充内容**：如果你对某个细分领域（如特定国家的物流、新兴平台）有深入了解，欢迎提交 PR。
+2.  **纠错更新**：发现文档中的政策过期或链接失效？请提交 Issue 或直接修改。
+3.  **分享资源**：分享好用的 Excel 模版、工具清单等。
+
+**提交 Pull Request 流程：**
+1.  Fork 本仓库。
+2.  新建分支 `Feat_xxx`。
+3.  提交代码。
+4.  新建 Pull Request。
+
+---
+
+## ⚠️ 免责声明 (Disclaimer)
+
+1.  **仅供参考**：本项目所有内容仅供学习和参考，不构成任何法律、税务或投资建议。在进行跨境贸易、资金流转或税务申报时，请咨询专业律师或会计师。
+2.  **技术中立**：本项目中涉及的网络技术（Network/Proxy）仅针对跨境电商运营环境（如访问后台、海外社媒营销）的合法合规需求，严禁用于任何非法用途。
+3.  **风险提示**：跨境电商涉及多国法律与平台规则，操作前请务必仔细阅读相关服务条款，自行承担运营风险。
+
+---
+
+## 📄 版权协议 (License)
+
+本仓库内容采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 协议。
+* ✅ **署名**：转载时请注明出处。
+* ✅ **非商业性使用**：禁止将本仓库内容打包进行付费培训或直接售卖。
+* ✅ **相同方式共享**：基于本内容修改后的作品，需采用相同的协议发布。
+
+---
+
+**如果这个项目对你有帮助，请点击右上角的 ⭐️ Star 支持一下！**
